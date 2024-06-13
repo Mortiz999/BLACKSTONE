@@ -59,7 +59,7 @@
 		H.change_stat("perception", 1)
 		H.change_stat("speed", 1)
 
-		//Slightly less scuffed way to do loadouts, low chance for landsknecht style double mercenaries
+		//Slightly less scuffed way to do loadouts, low chance for landsknecht style double-mercenaries
 	if(prob(25))
 		r_hand = /obj/item/rogueweapon/greatsword/zwei
 		armor = /obj/item/clothing/suit/roguetown/armor/plate/half
