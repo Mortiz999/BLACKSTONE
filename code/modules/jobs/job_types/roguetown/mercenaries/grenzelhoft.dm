@@ -28,16 +28,6 @@
 	neck = /obj/item/clothing/neck/roguetown/gorget
 	head = /obj/item/clothing/head/roguetown/chaperon
 
-	//quick and gay way to do random loadouts
-	var/equipment = rand(1, 2)
-	if(equipment == 1)
-		r_hand = /obj/item/rogueweapon/spear/billhook
-	else if (equipment == 2)
-		r_hand = /obj/item/rogueweapon/halberd
-	var/obj/item/flashlight/flare/torch/T = new()
-	T.spark_act()
-	H.put_in_hands(T,forced=TRUE)
-
 	if(H.gender == FEMALE)
 		var/acceptable = list("Tomboy", "Bob", "Curly Short")
 		if(!(H.hairstyle in acceptable))
@@ -68,4 +58,23 @@
 		H.change_stat("constitution", 3)
 		H.change_stat("perception", 1)
 		H.change_stat("speed", 1)
+
+		//Slightly less scuffed way to do loadouts, low chance for landsknecht style double mercenaries
+	if(prob(25))
+		r_hand = /obj/item/rogueweapon/greatsword/zwei
+		armor = /obj/item/clothing/suit/roguetown/armor/plate/half
+		shirt = /obj/item/clothing/suit/roguetown/armor/gambeson
+		gloves = /obj/item/clothing/gloves/roguetown/chain
+		H.mind.adjust_skillrank(/datum/skill/combat/swords, 1, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/combat/polearms, -1, TRUE)
+	else if(prob(50))
+		beltl = /obj/item/rogueweapon/sword/iron/messer
+		r_hand = /obj/item/rogueweapon/spear/billhook
+	else
+		beltl = /obj/item/rogueweapon/huntingknife/idagger
+		r_hand = /obj/item/rogueweapon/halberd
+	var/obj/item/flashlight/flare/torch/T = new()
+	T.spark_act()
+	H.put_in_hands(T,forced=TRUE)
+
 	ADD_TRAIT(H, TRAIT_MEDIUMARMOR, TRAIT_GENERIC)
