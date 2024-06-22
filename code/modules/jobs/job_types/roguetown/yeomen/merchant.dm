@@ -35,6 +35,7 @@
 		H.mind.adjust_skillrank(/datum/skill/combat/unarmed, 2, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/combat/knives, 2, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/reading, 5, TRUE)
+		H.mind.adjust_skillrank(/datum/skill/misc/alchemy, 4, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/sneaking, 2, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/misc/stealing, 2, TRUE)
 		H.mind.adjust_skillrank(/datum/skill/labor/mathematics, 5, TRUE)
@@ -48,9 +49,11 @@
 		H.update_body()
 	if(H.gender == MALE)
 		shoes = /obj/item/clothing/shoes/roguetown/boots/leather
-		beltr = /obj/item/storage/belt/rogue/pouch/coins/rich
 		belt = /obj/item/storage/belt/rogue/leather/rope
-		beltl = /obj/item/keyring/merchant
+		beltl = /obj/item/storage/belt/rogue/pouch/coins/rich
+		beltr = /obj/item/rogueweapon/sword/rapier
+		backr = /obj/item/storage/backpack/rogue/satchel
+		backpack_contents = list(/obj/item/keyring/merchant)
 		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/sailor
 		pants = /obj/item/clothing/under/roguetown/tights/sailor
 		neck = /obj/item/clothing/neck/roguetown/horus
@@ -65,9 +68,11 @@
 				H.dna.species.soundpack_m = new /datum/voicepack/male/wizard()
 	else
 		shoes = /obj/item/clothing/shoes/roguetown/gladiator
-		beltr = /obj/item/storage/belt/rogue/pouch/coins/rich
 		belt = /obj/item/storage/belt/rogue/leather/rope
-		beltl = /obj/item/roguekey/merchant
+		beltl = /obj/item/storage/belt/rogue/pouch/coins/rich
+		beltr = /obj/item/rogueweapon/sword/rapier
+		backr = /obj/item/storage/backpack/rogue/satchel
+		backpack_contents = list(/obj/item/keyring/merchant)
 		shirt = /obj/item/clothing/suit/roguetown/shirt/undershirt/sailor
 		neck = /obj/item/clothing/neck/roguetown/horus
 		armor = /obj/item/clothing/suit/roguetown/shirt/robe/merchant

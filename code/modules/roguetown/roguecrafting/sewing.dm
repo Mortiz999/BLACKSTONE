@@ -16,6 +16,12 @@
 	reqs = list(/obj/item/natural/cloth = 2)
 	craftdiff = 0
 
+/datum/crafting_recipe/roguetown/sewing/burial_shroud
+	name = "winding sheet"
+	result = list(/obj/item/burial_shroud)
+	reqs = list(/obj/item/natural/cloth = 2)
+	craftdiff = 1
+
 /datum/crafting_recipe/roguetown/sewing/loincloth
 	name = "loincloth"
 	result = list(/obj/item/clothing/under/roguetown/loincloth)
@@ -250,7 +256,7 @@
 	sellprice = 80
 
 /datum/crafting_recipe/roguetown/sewing/sexydress
-	name = "sexy dress of legendary sewers"
+	name = "sexy dress of legendary sewists"
 	result = list(/obj/item/clothing/suit/roguetown/shirt/dress/gen/sexy)
 	reqs = list(/obj/item/natural/cloth = 6,
 				/obj/item/natural/fibers = 3)

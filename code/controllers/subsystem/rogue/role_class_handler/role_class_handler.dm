@@ -108,6 +108,9 @@ SUBSYSTEM_DEF(role_class_handler)
 		if(RT_JOB.advclass_cat_rolls.len)
 			XTRA_MEATY.class_cat_alloc_attempts = RT_JOB.advclass_cat_rolls
 
+	if(RT_JOB.PQ_boost_divider)
+		XTRA_MEATY.PQ_boost_divider = RT_JOB.PQ_boost_divider
+
 	if(H.client.ckey in special_session_queue)
 		XTRA_MEATY.special_session_queue = list()
 		for(var/funny_key in special_session_queue[H.client.ckey])
@@ -159,12 +162,13 @@ SUBSYSTEM_DEF(role_class_handler)
 /datum/controller/subsystem/role_class_handler/proc/adjust_class_amount(datum/advclass/target_datum, amount)
 	target_datum.total_slots_occupied += amount
 
-	if((target_datum.total_slots_occupied >= target_datum.maximum_possible_slots)) // We just hit a cap, iterate all the class handlers and inform them.
-		for(var/CUCKS in class_select_handlers)
-			var/datum/class_select_handler/found_menu = class_select_handlers[CUCKS]
-			
-			if(target_datum in found_menu.rolled_classes) // We found the target datum in one of the classes they rolled aka in the list of options they got visible,
-				found_menu.rolled_class_is_full(target_datum) //  inform the datum of its error.
+	if(!(target_datum.maximum_possible_slots == -1)) // Is the class not set to infinite?
+		if((target_datum.total_slots_occupied >= target_datum.maximum_possible_slots)) // We just hit a cap, iterate all the class handlers and inform them.
+			for(var/CUCKS in class_select_handlers)
+				var/datum/class_select_handler/found_menu = class_select_handlers[CUCKS]
+				
+				if(target_datum in found_menu.rolled_classes) // We found the target datum in one of the classes they rolled aka in the list of options they got visible,
+					found_menu.rolled_class_is_full(target_datum) //  inform the datum of its error.
 
 
 

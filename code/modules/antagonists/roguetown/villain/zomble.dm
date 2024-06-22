@@ -46,6 +46,7 @@
 		TRAIT_ZOMBIE_IMMUNE,
 		TRAIT_EMOTEMUTE,
 		TRAIT_ROTMAN,
+		TRAIT_NORUN
 	)
 	/// Traits applied to the owner when we are cured and turn into just "rotmen"
 	var/static/list/traits_rotman = list(
@@ -224,16 +225,16 @@
 		zombie.emote("idle")
 		next_idle_sound = world.time + rand(5 SECONDS, 10 SECONDS)
 	//fuck friendly zombies - tries to bite humans in range
-	if(world.time - last_bite < 10 SECONDS)
+/*	if(world.time - last_bite < 10 SECONDS)
 		return
 	var/obj/item/grabbing/bite/bite = zombie.get_item_by_slot(SLOT_MOUTH)
 	if(!bite || !get_location_accessible(src, BODY_ZONE_PRECISE_MOUTH, grabs = TRUE))
 		for(var/mob/living/carbon/human in view(1, zombie))
-			if((human.mob_biotypes & MOB_UNDEAD) || ("undead" in human.faction) || HAS_TRAIT(human, TRAIT_ZOMBIE_IMMUNE))
+			if((human.mob_biotypes & MOB_UNDEAD) || ("undead" in human.faction) || HAS_TRAIT(human, TRAIT_ZOMBIE_IMMUNE)) //Uncomment auto-bite when playable zombies are re-implemented.
 				continue
 			human.onbite(zombie)
 	else if(istype(bite))
-		bite.bitelimb(zombie)
+		bite.bitelimb(zombie)*/
 
 //Infected wake param is just a transition from living to zombie, via zombie_infect()
 //Previously you just died without warning in 3 minutes, now you just become an antag
@@ -329,7 +330,7 @@
 	if(!zombie_antag)
 		return
 	if(stat >= DEAD) //do shit the natural way i guess
-		return 
+		return
 	to_chat(src, span_danger("I feel horrible... REALLY horrible..."))
 	mob_timers["puke"] = world.time
 	vomit(1, blood = TRUE, stun = FALSE)

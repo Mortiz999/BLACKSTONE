@@ -1,7 +1,7 @@
 
 /obj/structure/closet/dirthole
 	name = "hole"
-	desc = "Just a small hole.."
+	desc = "Just a small hole..."
 	icon_state = "hole1"
 	icon = 'icons/turf/roguefloor.dmi'
 	var/stage = 1
@@ -19,7 +19,7 @@
 	layer = 2.8
 
 /obj/structure/closet/dirthole/grave
-	desc = "A hole big enough for a coffin.."
+	desc = "A hole big enough for a coffin."
 	stage = 3
 	faildirt = 3
 	icon_state = "grave"
@@ -162,7 +162,7 @@
 
 /atom/movable/screen/alert/status_effect/debuff/cursed
 	name = "Cursed"
-	desc = "I feel.. Unlucky."
+	desc = "I feel... unlucky."
 	icon_state = "debuff"
 
 /obj/structure/closet/dirthole/MouseDrop_T(atom/movable/O, mob/living/user)
@@ -235,7 +235,7 @@
 			var/mob/living/carbon/human/B = A
 			B.buried = FALSE
 	..()
-	
+
 /obj/structure/closet/dirthole/open(mob/living/user)
 	if(opened)
 		return
@@ -284,9 +284,13 @@
 					else
 						new /obj/item/natural/worms(T)
 		else
-			if(!(locate(/obj/item/natural/stone) in T))
-				if(prob(23))
-					new /obj/item/natural/stone(T)
+			if((locate(/obj/structure/flora/newtree) in view(1)) && !(locate(/obj/item/grown/log/tree/stick) in T))
+				if(prob(33))
+					new /obj/item/grown/log/tree/stick(T)
+			else
+				if(!(locate(/obj/item/natural/stone) in T))
+					if(prob(33))
+						new /obj/item/natural/stone(T)
 	return ..()
 
 /obj/structure/closet/dirthole/Destroy()

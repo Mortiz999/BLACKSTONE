@@ -5,6 +5,11 @@
 	var/client/linked_client //the ss will link it!
 	//Well, we basically need to fill out our options
 
+/*
+	This is basically a int, we add one extra slot per every x amount of PQ
+*/
+	var/PQ_boost_divider = 0
+
 /* 
 	This list is organized like so
 	class_cat_alloc_attempts = list(CTAG_PILGRIM = 5, CTAG_ADVENTURER = 3, etc)
@@ -105,6 +110,12 @@
 
 			// Time to do some picking, make sure we got things in the list we dealin with
 			if(local_insert_sortlist.len)
+
+				// Get the maximum amount right here before we do the limit check
+				if(PQ_boost_divider)
+					var/slot_addition = ceil(get_playerquality(linked_client.ckey)/PQ_boost_divider)
+					class_cat_alloc_attempts[SORT_CAT_KEY] += slot_addition
+
 				// Make sure we aren't going to attempt to pick more than what we even have avail
 				if(class_cat_alloc_attempts[SORT_CAT_KEY] > local_insert_sortlist.len)
 					class_cat_alloc_attempts[SORT_CAT_KEY] = local_insert_sortlist.len
@@ -157,13 +168,21 @@
 	rolled_classes.Remove(filled_class)
 
 	var/list/possible_list = list()
-	for(var/CTAG_CAT in filled_class.category_tags)
-		for(var/datum/advclass/new_age_datum in local_sorted_class_cache[CTAG_CAT])
-			if(new_age_datum in rolled_classes)
-				continue
-			if(new_age_datum in possible_list) // In the offchance we got the datum in two cats, we don't want to cuck them by doubling up the chance to get it
-				continue
-			possible_list += new_age_datum
+	// Time to sort and find our viable classes depending on what conditions we gotta deal w
+	if(class_cat_alloc_attempts && class_cat_alloc_attempts.len)
+		for(var/CTAG_CAT in filled_class.category_tags)
+			for(var/datum/advclass/new_age_datum in local_sorted_class_cache[CTAG_CAT])
+				if(new_age_datum in rolled_classes)
+					continue
+				if(new_age_datum in possible_list) // In the offchance we got the datum in two cats, we don't want to cuck them by doubling up the chance to get it
+					continue
+				possible_list += new_age_datum
+
+	// If we got forced class additions
+	if(forced_class_additions && forced_class_additions.len)
+		for(var/uninstanced_azz_types in forced_class_additions)
+			var/datum/advclass/FORCE_IT_IN = new uninstanced_azz_types
+			possible_list += FORCE_IT_IN
 
 	if(possible_list.len)
 		rolled_classes[pick(possible_list)] = 0
